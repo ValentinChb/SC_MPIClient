@@ -11,7 +11,7 @@ If not, both farm- and turbine-level controls are read from the external control
 
 # Installation
 - Install a MPI distribution (Microsoft MPI has been used in this project) and run Build_lmsmpi.bat (adapt if necessary) to generate linkable MPI dependencies
-- Use CMAKE to generate Makefile. Specific CMAKE BOOL options are:
+- Use CMAKE to generate Makefile, with *src* as source folder and *custom-build* as build folder. Specific CMAKE BOOL options are:
   - CMAKE_LINK2DTUWEC: links to a modified version of the DTU Wind Energy Controller (https://github.com/ValentinChb/DTUWEC) for turbine-level controls, implementing an active derating functionality
   - CMAKE_LINK2ROSCO: links to the ROSCO controller (https://github.com/NREL/ROSCO) as an alternative/complement for turbine-level controls
   - CMAKE_LINK2MPI: if deactivated, no MPI bridge with external controller will be made. This may be used for single-turbine simulations to avoid unnecessary dependencies, or for debugging

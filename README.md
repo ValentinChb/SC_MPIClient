@@ -1,7 +1,7 @@
 # SC_MPIClient
 
 This is a MPI bridge enabling alternative supercontroller implementations for NREL's FAST.farm (https://github.com/OpenFAST/openfast). 
-It establishes a two-way real-time connection between a controller run in an external parallel environment (e.g. The Mathworks' Matlab/Simulink) and each turbine's OpenFAST instance in FAST.Farm, through the bladed-style controller dll loaded in ServoDyn.
+It establishes a two-way real-time connection between on the one side a controller run in an external parallel environment (e.g. The Mathworks' Matlab/Simulink), and on the other side OpenFAST instances for each turbine in FAST.Farm, through the bladed-style controller dll loaded in ServoDyn.
 
 At each turbine-level (ServoDyn) timestep, the bladed-style controller array (avrSWAP) is exchanged between the client (i.e. the turbine side, provided in this repository) and the server (i.e. the farm side).
 Parallel execution of OpenFAST instances within one farm-level (FAST.Farm) timestep is supported (using the OMP version of FAST.Farm). 

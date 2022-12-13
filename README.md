@@ -20,7 +20,7 @@ If not, both farm- and turbine-level controls are read from the external control
 
 
 # Use
-- FAST.Farm input files must satisfy the following architecture: <Root folder containing *.fstf file> / OpenFAST / T< iturb > / <*.fst file for turbine iturb>
+- FAST.Farm input files must satisfy the following architecture: <Root folder containing .fstf file> / OpenFAST / T< iturb > / <.fst file for turbine iturb>
 - The input file SC_input.dat must be placed in the OpenFAST folder, with the following inputs: 
   - UseSC (0 or 1) use MPI communication or not. 0 has similar effect as CMAKE_LINK2MPI=FALSE at build stage, except that the library is linked to depednencies though not using them
   - Number of turbines

@@ -15,7 +15,8 @@ If not, both farm- and turbine-level controls are read from the external control
   - CMAKE_LINK2DTUWEC: links to a modified version of the DTU Wind Energy Controller (https://github.com/ValentinChb/DTUWEC) for turbine-level controls, implementing an active derating functionality
   - CMAKE_LINK2ROSCO: links to the ROSCO controller (https://github.com/NREL/ROSCO) as an alternative/complement for turbine-level controls
   - CMAKE_LINK2MPI: if deactivated, no MPI bridge with external controller will be made. This may be used for single-turbine simulations to avoid unnecessary dependencies, or for debugging
-- Copy the following dependencies in the custom-build/
+- Make sure you have the following dependencies (update if actual) in custom-build/src: mpi.mod and libmsmpi.a (if using other mpi distribution, update name in CMAKE), dtu_we_controller_bladed.mod and libDTUWEC4SC.dll.a (if using DTUWEC), rosco.mod, rosco_types.mod and libROSCO.a (if using ROSCO). 
+- Make project. The library will have a different name depending on the CMAKE options above.
 
 
 # Use
@@ -24,7 +25,7 @@ If not, both farm- and turbine-level controls are read from the external control
   - UseSC (0 or 1) use MPI communication or not. 0 has similar effect as CMAKE_LINK2MPI=FALSE at build stage, except that the library is linked to depednencies though not using them
   - Number of turbines
   - Farm-level timestep
-  - Path of the MPI communication shared file, used to sync communication information between the MPI client and server (you should not edit and should not need to open this file)
+  - Path of the MPI communication shared file, used to sync communication information between the MPI client and server (you should not edit and should not need to open this file, just make sure its parent folder exists)
   - Mod_AmbWind in FAST.Farm (for advanced use, not supported here)
   - Nseeds for running multiple realizations of turbulent wind field (for advanced use, not supported here)
 - Place a copy of the DTUWEC4SC and/or ROSCO dll(s) in the root folder

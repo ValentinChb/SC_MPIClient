@@ -294,7 +294,7 @@ endif()
 
 #VC edit: link to dtuwec library 
 if (CMAKE_LINK2DTUWEC)
-	target_link_libraries(${PROJECT_NAME} ${ROOT_DIR}/custom-build/src/libDTUWEC4SC.dll.a)
+	target_link_libraries(${PROJECT_NAME} ${ROOT_DIR}/custom-build/src/libDTUWEC4SC.a)
 	message("Linking to DTUWEC library")				
 endif()
 

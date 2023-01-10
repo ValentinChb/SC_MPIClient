@@ -96,7 +96,7 @@ src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.
 src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj
 src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/build.make
 src/SCClient_DTUWEC_64.dll: src/libmsmpi.a
-src/SCClient_DTUWEC_64.dll: src/libDTUWEC4SC.dll.a
+src/SCClient_DTUWEC_64.dll: src/libDTUWEC4SC.a
 src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/linklibs.rsp
 src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/objects1.rsp
 src/SCClient_DTUWEC_64.dll: src/CMakeFiles/SCClient_DTUWEC.dir/link.txt

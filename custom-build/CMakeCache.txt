@@ -223,7 +223,16 @@ SCClient_DTUWEC)_Standalone)_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/Open
 SCClient_DTUWEC_BINARY_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src
 
 //Dependencies for the target
-SCClient_DTUWEC_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libDTUWEC4SC.dll.a;
+SCClient_DTUWEC_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libDTUWEC4SC.a;
+
+//Value Computed by CMake
+SCClient_DTUWEC_ROSCO_BINARY_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src
+
+//Dependencies for the target
+SCClient_DTUWEC_ROSCO_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libDTUWEC4SC.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libROSCO.a;
+
+//Value Computed by CMake
+SCClient_DTUWEC_ROSCO_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src
 
 //Value Computed by CMake
 SCClient_DTUWEC_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src
@@ -238,7 +247,7 @@ SCClient_DTUWEC_Standalone_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspa
 SCClient_DTUWEC_Standalone_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src
 
 //Dependencies for the target
-SCClient_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libDTUWEC4SC.a;
+SCClient_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;
 
 //Value Computed by CMake
 SCClient_NoMPI_BINARY_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src
@@ -248,6 +257,15 @@ SCClient_NoMPI_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/
 
 //Value Computed by CMake
 SCClient_NoMPI_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src
+
+//Value Computed by CMake
+SCClient_ROSCO_BINARY_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src
+
+//Dependencies for the target
+SCClient_ROSCO_LIB_DEPENDS:STATIC=general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libmsmpi.a;general;C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/libROSCO.a;
+
+//Value Computed by CMake
+SCClient_ROSCO_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src
 
 //Value Computed by CMake
 SCClient_SOURCE_DIR:STATIC=C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient

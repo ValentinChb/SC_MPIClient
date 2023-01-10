@@ -12,6 +12,9 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     use rosco 
 #endif
 
+    !! DLLEXPORT attribute seems to be needed here in order for SCClient_DISCON to be included in dll when DTUWEC is statically linked (C binding is not sufficient, why???) 
+    !GCC$ ATTRIBUTES DLLEXPORT :: SCClient_DISCON
+
     ! New fields in avrSWAP (currently unused by ServoDyn):
     ! 85: turbine number
     ! 86: length of control directory path
@@ -42,7 +45,7 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     ! ROSCO variables
     real(c_float), dimension(87)           :: avrSWAP_ROSCO
     integer(c_size_t), save                :: ROSCO_IN_LEN
-    character(Kind=c_char), save           :: ROSCO_IN(nint(avrSWAP(50))) ! ROSCO_DISCON.IN//C_NULL_CHAR should be shorter that the controller input file's name (typically controller_input.dat) 
+    character(Kind=c_char), save           :: ROSCO_IN(255) ! ROSCO_DISCON.IN//C_NULL_CHAR should be shorter that the controller input file's name (typically controller_input.dat) 
 #endif
 
     ! Local variables
@@ -57,6 +60,7 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     integer                                :: error
     integer, parameter                     :: NavrSWAP=87
     real(c_float), parameter               :: pi = 3.14159265358979
+    character(len=size(avcINFILE))         :: cInFile            
     
 
     iStatus = nint(avrSWAP(1))
@@ -80,6 +84,10 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     avrSWAP(85)=REAL(SC_Var%iT)
     avrSWAP(86)=REAL(ctrl_dir_c_len)
 
+    cInFile = transfer(avcINFILE(1:len(cInFile)),cInFile)
+    i = index(cInFile, C_NULL_CHAR) - 1       ! Find the c NULL character at the end of cInFile, if it has then remove it
+    if (i>0) cInFile = cInFile(1:i)
+
 
 #if DTUWEC
     ! Call DTUWEC
@@ -95,7 +103,7 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
         i = max(index(cInFile,"/",back=.true.),index(cInFile,"\",back=.true.)) ! Get working directory as the root folder of the specified controller input file
         ROSCO_IN=c_null_char
         ROSCO_IN_LEN=i+len("ROSCO.IN")+1 ! Append a c_null_char at the end
-        ROSCO_IN(1:ROSCO_IN_LEN)=transfer(cInFile(1:i)//"ROSCO.IN"//c_null_char,ROSCO_IN(1:ROSCO_IN_LEN))
+        ROSCO_IN(1:ROSCO_IN_LEN)=transfer(ROSCO_IN(1:i)//"ROSCO.IN"//c_null_char,ROSCO_IN(1:ROSCO_IN_LEN))
     endif
     avrSWAP_ROSCO = avrSWAP(1:NavrSWAP)
     avrSWAP_ROSCO(50)=real(ROSCO_IN_LEN,c_float)
@@ -107,10 +115,10 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
 
     ! VC edit: print out avrSWAP for debug
     if(iStatus==0) then
-        fidout=100
+        fidout=101
         open(unit=fidout,file=trim(SC_var%dir_ctrl)//'\SCClient_out.dat',iostat=error)
     endif
-    write(fidout,'(*(e13.5))') avrSWAP(2), avrSWAP(21), avrSWAP(45)*180.0/pi, avrSWAP(4)*180.0/pi, avrSWAP(47), avrSWAP(13), avrSWAP(15), avrSWAP(27), avrSWAP(87)
+    write(fidout,'(*(e13.5))') avrSWAP(2), avrSWAP(21), avrSWAP(45)*180.0/pi, avrSWAP(4)*180.0/pi, avrSWAP(47), avrSWAP(13), avrSWAP(15), avrSWAP(27), avrSWAP(87), avrSWAP(48)
     if(PrintFlag) call flush(fidout)
     if (iStatus < 0) close(fidout)
     ! if(SC_var%iT==1) print*, 'DISCON: ',iStatus, avrSWAP(13), avrSWAP(87)

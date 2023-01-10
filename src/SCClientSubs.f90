@@ -39,12 +39,13 @@ contains
 
 !-------------------------------------------------------------------------
 ! Main super controller routine
-subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror)
-    integer, intent(inout)                  :: status
-    real(C_FLOAT), intent(inout)            :: avrSWAP(:)                       ! The swap array, used to pass data to, and receive data from, the DLL controller.
-    integer, intent(in)                     :: lfilename
+subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,name="SC_MPI")
+    use, intrinsic                          :: ISO_C_Binding
+    integer(c_int), intent(inout)           :: status
+    real(c_float), intent(inout)            :: avrSWAP(:)                       ! The swap array, used to pass data to, and receive data from, the DLL controller.
+    integer(c_int), intent(in)              :: lfilename
     character(kind=c_char), intent(in)      :: SCinit_filename(lfilename)       ! The name of the parameter input .IN file
-    integer                                 :: ierror
+    integer(c_int)                          :: ierror
     ! logical, parameter                      :: powerramp=.true.
 
     ! logical                                 :: initflag
@@ -171,7 +172,6 @@ subroutine SC_init(lfilename,SCinit_filename_C,DT,ierror)
 
     output_unit_eff = stdout
     if (verbose .and. textout) then ! Print to text file instead of stdout
-        output_unit_eff = 100 
         ! inquire( file=trim(adjustl(dir_ctrl))//"/stdout_SCClientSubs.txt", exist=file_exists)
         open( unit=output_unit_eff, file=trim(adjustl(dir_ctrl))//"/stdout_SCClientSubs.txt")
     endif

@@ -96,7 +96,6 @@ src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/SCClientSubs.f90.obj
 src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/SCClient_DISCON.f90.obj
 src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/build.make
 src/SCClient_64.dll: src/libmsmpi.a
-src/SCClient_64.dll: src/libDTUWEC4SC.dll.a
 src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/linklibs.rsp
 src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/objects1.rsp
 src/SCClient_64.dll: src/CMakeFiles/SCClient.dir/link.txt

@@ -15,7 +15,7 @@ If not, both farm- and turbine-level controls are read from the external control
   - CMAKE_LINK2DTUWEC: links to a modified version of the DTU Wind Energy Controller (https://github.com/ValentinChb/DTUWEC) for turbine-level controls, implementing an active derating functionality
   - CMAKE_LINK2ROSCO: links to the ROSCO controller (https://github.com/NREL/ROSCO) as an alternative/complement for turbine-level controls
   - CMAKE_LINK2MPI: if deactivated, no MPI bridge with external controller will be made. This may be used for single-turbine simulations to avoid unnecessary dependencies, or for debugging
-- Make sure you have the following dependencies (update if actual) in custom-build/src: mpi.mod and libmsmpi.a (if using other mpi distribution, update name in CMAKE), dtu_we_controller_bladed.mod and libDTUWEC4SC.a (if using DTUWEC), rosco.mod, rosco_types.mod and libROSCO.a (if using ROSCO). 
+- Make sure you have the following dependencies (update if actual) in custom-build/src: mpi.mod and libmsmpi.a (if using other mpi distribution, update name in CMAKE), dtu_we_controller_bladed.mod and libDTUWEC4SC.a (if using DTUWEC), rosco.mod, rosco_types.mod and libROSCO.a (if using ROSCO). Note that linking must be static, as dynamic linking (loading DTUWEC or ROSCO dll at runtime as dependency) is challenging to make thread-safe.
 - Make project. The library will have a different name depending on the CMAKE options above.
 
 

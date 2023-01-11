@@ -91,12 +91,12 @@ src/clean: src/CMakeFiles/SCClient_DTUWEC.dir/clean
 src/CMakeFiles/SCClient_DTUWEC.dir/all:
 	$(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/depend
 	$(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build\CMakeFiles --progress-num=1,2,3 "Built target SCClient_DTUWEC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build\CMakeFiles --progress-num=1,2,3,4 "Built target SCClient_DTUWEC"
 .PHONY : src/CMakeFiles/SCClient_DTUWEC.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/SCClient_DTUWEC.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build\CMakeFiles 4
 	$(MAKE) -f CMakeFiles\Makefile2 src/CMakeFiles/SCClient_DTUWEC.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build\CMakeFiles 0
 .PHONY : src/CMakeFiles/SCClient_DTUWEC.dir/rule

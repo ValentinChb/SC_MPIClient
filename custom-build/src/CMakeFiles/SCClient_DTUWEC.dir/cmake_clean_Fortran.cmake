@@ -7,4 +7,8 @@ FILE(REMOVE
   "scclientsubs.mod"
   "SCCLIENTSUBS.mod"
   "CMakeFiles/SCClient_DTUWEC.dir/scclientsubs.mod.stamp"
+
+  "yawanglefromfile.mod"
+  "YAWANGLEFROMFILE.mod"
+  "CMakeFiles/SCClient_DTUWEC.dir/yawanglefromfile.mod.stamp"
   )

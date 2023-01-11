@@ -1,4 +1,6 @@
 module SCClient
+
+implicit none
     
 contains
 !**************************************************************************************************
@@ -11,6 +13,8 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
 #if ROSCO
     use rosco 
 #endif
+
+    
 
     !! DLLEXPORT attribute seems to be needed here in order for SCClient_DISCON to be included in dll when DTUWEC is statically linked (C binding is not sufficient, why???) 
     !GCC$ ATTRIBUTES DLLEXPORT :: SCClient_DISCON
@@ -49,7 +53,7 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
 #endif
 
     ! Local variables
-    real(c_float), dimension(87)           :: avrSWAP_MPI
+    real(c_float), dimension(87)           :: avrSWAP_SC
     integer(c_int)                         :: iStatus
     integer, save                          :: fidout
     logical                                :: PrintFlag
@@ -60,21 +64,21 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     integer                                :: error
     integer, parameter                     :: NavrSWAP=87
     real(c_float), parameter               :: pi = 3.14159265358979
-    character(len=size(avcINFILE))         :: cInFile            
+    character(len=size(avcINFILE))         :: cInFile    
     
 
     iStatus = nint(avrSWAP(1))
 
-    PrintFlag = mod(dble(avrSWAP(2)),SC_var%SC_DT)==0.0 .or. callno==0 ! Outputs only at new farm-level timestep
+    PrintFlag = mod(dble(avrSWAP(2)),SC_var%SC_DT)==0.0 .or. iStatus==0 ! Outputs only at new farm-level timestep
     if(avrSWAP(87)==0.0) avrSWAP(87) = avrSWAP(27)
 
     ! Call SuperController
-    avrSWAP_MPI = avrSWAP(1:87)
-    call SC_MPI(iStatus, avrSWAP_MPI, nint(avrSWAP_MPI(50)), avcINFILE , aviFAIL) ! If MPI is not defined as preprocessor flag, this will have effect only at initialization
+    avrSWAP_SC = avrSWAP(1:87)
+    call SC_MPI(iStatus, avrSWAP_SC, nint(avrSWAP_SC(50)), avcINFILE , aviFAIL) ! If MPI is not defined as preprocessor flag, this will only read input file at init and run hard-coded supercontroller is applicable
     ! Extract desired outputs
-    if(iStatus>=1) avrSWAP(1:87)=avrSWAP_MPI
+    if(iStatus>=1) avrSWAP(1:87)=avrSWAP_SC
 
-    if (IStatus==0) then
+    if (iStatus==0) then
         call get_TSC(SC_var)
         ctrl_dir_c=c_null_char
         ctrl_dir_c_len=len(trim(adjustl(SC_var%dir_ctrl)))+1 ! Add 1 for c_null_char at the end
@@ -84,10 +88,11 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
     avrSWAP(85)=REAL(SC_Var%iT)
     avrSWAP(86)=REAL(ctrl_dir_c_len)
 
-    cInFile = transfer(avcINFILE(1:len(cInFile)),cInFile)
-    i = index(cInFile, C_NULL_CHAR) - 1       ! Find the c NULL character at the end of cInFile, if it has then remove it
-    if (i>0) cInFile = cInFile(1:i)
-
+    if (iStatus==0) then
+        cInFile = transfer(avcINFILE(1:len(cInFile)),cInFile)
+        i = index(cInFile, C_NULL_CHAR) - 1       ! Find the c NULL character at the end of cInFile, if it has then remove it
+        if (i>0) cInFile = cInFile(1:i)
+    endif
 
 #if DTUWEC
     ! Call DTUWEC

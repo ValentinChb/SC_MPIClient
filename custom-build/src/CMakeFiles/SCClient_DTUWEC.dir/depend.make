@@ -4,6 +4,7 @@
 # Note that incremental build could trigger a call to cmake_copy_f90_mod on each re-build
 
 src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj: src/mpi.mod
+src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj: src/CMakeFiles/SCClient_DTUWEC.dir/yawanglefromfile.mod.stamp
 src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj.provides.build: src/CMakeFiles/SCClient_DTUWEC.dir/scclientsubs.mod.stamp
 src/CMakeFiles/SCClient_DTUWEC.dir/scclientsubs.mod.stamp: src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj
 	$(CMAKE_COMMAND) -E cmake_copy_f90_mod src\scclientsubs.mod src\CMakeFiles\SCClient_DTUWEC.dir\scclientsubs.mod.stamp GNU
@@ -20,3 +21,10 @@ src/CMakeFiles/SCClient_DTUWEC.dir/scclient.mod.stamp: src/CMakeFiles/SCClient_D
 src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj.provides.build:
 	$(CMAKE_COMMAND) -E touch src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj.provides.build
 src/CMakeFiles/SCClient_DTUWEC.dir/build: src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj.provides.build
+
+src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj.provides.build: src/CMakeFiles/SCClient_DTUWEC.dir/yawanglefromfile.mod.stamp
+src/CMakeFiles/SCClient_DTUWEC.dir/yawanglefromfile.mod.stamp: src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj
+	$(CMAKE_COMMAND) -E cmake_copy_f90_mod src\yawanglefromfile.mod src\CMakeFiles\SCClient_DTUWEC.dir\yawanglefromfile.mod.stamp GNU
+src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj.provides.build:
+	$(CMAKE_COMMAND) -E touch src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj.provides.build
+src/CMakeFiles/SCClient_DTUWEC.dir/build: src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj.provides.build

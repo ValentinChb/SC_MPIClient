@@ -2,3 +2,4 @@
 provides
  scclient.mod
  scclientsubs.mod
+ yawanglefromfile.mod

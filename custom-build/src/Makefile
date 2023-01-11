@@ -178,6 +178,33 @@ SCClient_DISCON.f90.s:
 	cd /d C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build && $(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.s
 .PHONY : SCClient_DISCON.f90.s
 
+YawAngleFromFile.obj: YawAngleFromFile.f90.obj
+
+.PHONY : YawAngleFromFile.obj
+
+# target to build an object file
+YawAngleFromFile.f90.obj:
+	cd /d C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build && $(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj
+.PHONY : YawAngleFromFile.f90.obj
+
+YawAngleFromFile.i: YawAngleFromFile.f90.i
+
+.PHONY : YawAngleFromFile.i
+
+# target to preprocess a source file
+YawAngleFromFile.f90.i:
+	cd /d C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build && $(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.i
+.PHONY : YawAngleFromFile.f90.i
+
+YawAngleFromFile.s: YawAngleFromFile.f90.s
+
+.PHONY : YawAngleFromFile.s
+
+# target to generate assembly for a file
+YawAngleFromFile.f90.s:
+	cd /d C:\Users\valentinc\Workspace\OpenFAST\SuperController\SC_MPIClient\custom-build && $(MAKE) -f src\CMakeFiles\SCClient_DTUWEC.dir\build.make src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.s
+.PHONY : YawAngleFromFile.f90.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -193,6 +220,9 @@ help:
 	@echo ... SCClient_DISCON.obj
 	@echo ... SCClient_DISCON.i
 	@echo ... SCClient_DISCON.s
+	@echo ... YawAngleFromFile.obj
+	@echo ... YawAngleFromFile.i
+	@echo ... YawAngleFromFile.s
 .PHONY : help
 
 

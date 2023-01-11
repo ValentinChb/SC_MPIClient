@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_Fortran
   "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/SCClientSubs.f90" "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj"
   "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/SCClient_DISCON.f90" "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj"
+  "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/YawAngleFromFile.f90" "C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/custom-build/src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj"
   )
 set(CMAKE_Fortran_COMPILER_ID "GNU")
 set(CMAKE_Fortran_SUBMODULE_SEP "@")

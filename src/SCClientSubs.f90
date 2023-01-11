@@ -5,6 +5,7 @@ module SCClientSubs
 #endif
 use, intrinsic          :: ISO_C_Binding
 use, intrinsic          :: ISO_FORTRAN_ENV, only : stdout=>output_unit ! get output unit for stdout, see https://stackoverflow.com/questions/8508590/standard-input-and-output-units-in-fortran-90
+use YawAngleFromFile
 
 implicit none
 private
@@ -23,6 +24,7 @@ logical, parameter              :: textout = .true.
 integer                         :: output_unit_eff
 character(255), save            :: dir_ctrl, dir_fast, dir_farm  
 logical                         :: ReadSC = .true.      ! false: bypass reading SC_input.dat and force UseSC=0 (for single-turbine use)
+real, parameter                 :: pi = 3.1415
 
 public                          :: SC_MPI, TSC, get_TSC
 
@@ -46,7 +48,10 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     integer(c_int), intent(in)              :: lfilename
     character(kind=c_char), intent(in)      :: SCinit_filename(lfilename)       ! The name of the parameter input .IN file
     integer(c_int)                          :: ierror
-    ! logical, parameter                      :: powerramp=.true.
+    logical, parameter                      :: powerramp=.false.
+    logical, parameter                      :: YawAngleFormFile_flag = .true.
+    real(c_float)                           :: yawangle_cmd  
+    real(c_float)                           :: maxyawrate=5 ! arbitrary value only for stability 
 
     ! logical                                 :: initflag
     ! integer                                 :: taskID, ntasks
@@ -56,11 +61,27 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     avrSWAP(1) = status ! Update status in avrSWAP for communication with server
     
     ! if (status /=0) print*, iT
-    if (UseSC==0) then
-        avrSWAP(13)=12e6 ! make sure the commanded power is higher than rated power
-        ! if(powerramp) avrSWAP(13)=avrSWAP(13)-ABS(FLOOR(avrSWAP(2)/100.0)*1.0e6-avrSWAP(13))  ! Power ramp
+    if (UseSC/=1) then
+        avrSWAP(13)=12e6 ! Default commanded power, must be larger than rated power
+        avrSWAP(48)=0 ! Default commanded yaw rate
+
+        ! Hard-coded supercontroller
+        if (UseSC==2) then
+            ! Power ramp
+            if(powerramp) avrSWAP(13)=avrSWAP(13)-ABS(FLOOR(avrSWAP(2)/100.0)*1.0e6-avrSWAP(13))  
+
+            ! Yaw angles from file
+            if (YawAngleFormFile_flag .and. status/=0) then
+                call YawAngleFromFileSub(avrSWAP(2),iT,yawangle_cmd)
+                avrSWAP(48)=(yawangle_cmd*pi/180-avrSWAP(24))/avrSWAP(3) ! rate = (angle desired - angle measured)/dt
+                avrSWAP(48)=sign(min(abs(avrSWAP(48)),maxyawrate*pi/180),avrSWAP(48)) ! Apply saturation
+            endif
+        endif
+
         if(status/=0) goto 10
     endif
+
+
 
     ! Check rank and size, this should be 0 and 1 as we are not running multiple instances of the same program (using MPI_Exec.exe), but parallel threads with OpenMP. 
     ! call MPI_INITIALIZED(initflag,ierror)
@@ -182,7 +203,7 @@ subroutine SC_init(lfilename,SCinit_filename_C,DT,ierror)
     if (ReadSC) then
         nunit=40
         open(unit=nunit,file=trim(adjustl(dir_fast))//"/SC_input.dat",action='read')
-            read(nunit,*) UseSC    ! 0: do not use SC, 1: use SC
+            read(nunit,*) UseSC    ! 0: do not use SC, 1: use SC, 2: use hard-coded SC (not MPI)
             read(nunit,*) nT       ! Number of turbines
             read(nunit,*) SC_DT    ! Farm-level timestep
             read(nunit,*) MPIinit_filename ! path of input file for MPI connection

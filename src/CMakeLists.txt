@@ -22,8 +22,9 @@ message("Root Directory is: " ${ROOT_DIR})
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB_RECURSE SRC 
+					  "${SRC_DIR}/YawAngleFromFile.f90"
 					  "${SRC_DIR}/SCClientSubs.f90"
-					  "${SRC_DIR}/SCClient_DISCON.f90"
+					  "${SRC_DIR}/SCClient_DISCON.f90"					 
 	)
 	
 				   

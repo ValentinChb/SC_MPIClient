@@ -5,3 +5,5 @@ src/CMakeFiles/SCClient_DTUWEC.dir/SCClientSubs.f90.obj
  C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/SCClientSubs.f90
 src/CMakeFiles/SCClient_DTUWEC.dir/SCClient_DISCON.f90.obj
  C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/SCClient_DISCON.f90
+src/CMakeFiles/SCClient_DTUWEC.dir/YawAngleFromFile.f90.obj
+ C:/Users/valentinc/Workspace/OpenFAST/SuperController/SC_MPIClient/src/YawAngleFromFile.f90

@@ -4,22 +4,24 @@ implicit none
 
 contains
 
-subroutine YawAngleFromFileSub(t,iT,y_out)
+subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
 
-    real, intent(in)        :: t
-    integer, intent(in)     :: iT
-    real, intent(out)       :: y_out
+    real, intent(in)                :: t
+    integer, intent(in)             :: iT
+    character(255), intent(in)      :: dir_ctrl
+    real, intent(out)               :: y_out
 
-    character(*), parameter :: file="./YawAngles_10mps90deg.dat"
+    character(*), parameter :: file="YawAngles_10mps90deg.dat"
     integer, parameter      :: fid=303
     
     real, dimension(32)     :: y,y_prev
     real                    :: t_loc, t_loc_prev
     integer                 :: iT_loc
     real                    :: alpha, dt
+    integer                 :: error
 
 
-    open(unit=fid,file=file)
+    open(unit=fid,file=trim(adjustl(dir_ctrl))//'/'//file,iostat=error)
     read(fid,*)
 
     t_loc=0.0

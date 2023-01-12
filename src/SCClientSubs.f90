@@ -75,7 +75,7 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
             ! Yaw angles from file
             if (YawAngleFormFile_flag .and. status/=0) then
                 if (status==0) yawangle_0 = avrSWAP(37)*180/pi
-                call YawAngleFromFileSub(avrSWAP(2),iT,yawangle_cmd)
+                call YawAngleFromFileSub(avrSWAP(2),iT,dir_ctrl,yawangle_cmd)
                 yawangle_meas=avrSWAP(37)*180/pi-yawangle_0
                 avrSWAP(48)=(yawangle_cmd-yawangle_meas)*pi/180/avrSWAP(3) ! rate = (angle desired - angle measured)/dt [rad/s]
                 avrSWAP(48)=sign(min(abs(avrSWAP(48)),maxyawrate*pi/180),avrSWAP(48)) ! Apply saturation

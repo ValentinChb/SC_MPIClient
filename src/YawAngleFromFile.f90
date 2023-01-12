@@ -15,23 +15,22 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
     integer, parameter      :: fid=303
     
     real, dimension(32)     :: y, y_next
-    real                    :: t_loc
+    real                    :: t_next
     integer                 :: iT_loc
-    real                    :: alpha, dt
     integer                 :: error
 
 
     open(unit=fid,file=trim(adjustl(dir_ctrl))//'/'//file,iostat=error)
     read(fid,*)
 
-    t_loc=0.0
+    t_next=0.0
     y=0.0
     y_next=0.0
-    do while (t_loc<t)
+    do while (t_next<t)
         do iT_loc=1,32
             if(y_next(iT_loc)/=0.0) y(iT_loc)=y_next(iT_loc)
         enddo
-        read(fid,*) t_loc, y_next
+        read(fid,*) t_next, y_next
     enddo
 
     y_out=y(iT)

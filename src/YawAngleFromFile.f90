@@ -29,7 +29,7 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
     y_next=0.0
     do while (t_loc<t)
         do iT_loc=1,32
-            if(y(iT_loc)/=0.0) y(iT_loc)=y_next(iT_loc)
+            if(y_next(iT_loc)/=0.0) y(iT_loc)=y_next(iT_loc)
         enddo
         read(fid,*) t_loc, y_next
     enddo

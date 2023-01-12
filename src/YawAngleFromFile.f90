@@ -14,8 +14,8 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
     character(*), parameter :: file="YawAngles_10mps90deg.dat"
     integer, parameter      :: fid=303
     
-    real, dimension(32)     :: y,y_prev
-    real                    :: t_loc, t_loc_prev
+    real, dimension(32)     :: y, y_next
+    real                    :: t_loc
     integer                 :: iT_loc
     real                    :: alpha, dt
     integer                 :: error
@@ -26,21 +26,15 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
 
     t_loc=0.0
     y=0.0
+    y_next=0.0
     do while (t_loc<t)
-        t_loc_prev=t_loc
         do iT_loc=1,32
-            if(y(iT_loc)/=0.0) then
-                y_prev(iT_loc)=y(iT_loc)
-            else
-                y(iT_loc)=y_prev(iT_loc)
-            endif
+            if(y(iT_loc)/=0.0) y(iT_loc)=y_next(iT_loc)
         enddo
-        read(fid,*) t_loc, y
+        read(fid,*) t_loc, y_next
     enddo
 
-    dt=t_loc-t_loc_prev
-    alpha=(t_loc-t)/dt
-    y_out=y(iT)*(1-alpha)+y_prev(iT)*alpha
+    y_out=y(iT)
 
     close(fid)
 

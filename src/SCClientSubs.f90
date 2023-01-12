@@ -25,6 +25,7 @@ integer                         :: output_unit_eff
 character(255), save            :: dir_ctrl, dir_fast, dir_farm  
 logical                         :: ReadSC = .true.      ! false: bypass reading SC_input.dat and force UseSC=0 (for single-turbine use)
 real, parameter                 :: pi = 3.1415
+real(c_float), public           :: yawangle_cmd, yawangle_0, yawangle_meas ! Commanded, initial and measured yaw angles [deg]
 
 public                          :: SC_MPI, TSC, get_TSC
 
@@ -50,7 +51,7 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     integer(c_int)                          :: ierror
     logical, parameter                      :: powerramp=.false.
     logical, parameter                      :: YawAngleFormFile_flag = .true.
-    real(c_float)                           :: yawangle_cmd  
+     
     real(c_float)                           :: maxyawrate=5 ! arbitrary value only for stability 
 
     ! logical                                 :: initflag
@@ -64,6 +65,7 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     if (UseSC/=1) then
         avrSWAP(13)=12e6 ! Default commanded power, must be larger than rated power
         avrSWAP(48)=0 ! Default commanded yaw rate
+        yawangle_meas=0 ! Default relative yaw angle (wrt initial)
 
         ! Hard-coded supercontroller
         if (UseSC==2) then
@@ -72,8 +74,10 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
 
             ! Yaw angles from file
             if (YawAngleFormFile_flag .and. status/=0) then
+                if (status==0) yawangle_0 = avrSWAP(37)*180/pi
                 call YawAngleFromFileSub(avrSWAP(2),iT,yawangle_cmd)
-                avrSWAP(48)=(yawangle_cmd*pi/180-avrSWAP(24))/avrSWAP(3) ! rate = (angle desired - angle measured)/dt
+                yawangle_meas=avrSWAP(37)*180/pi-yawangle_0
+                avrSWAP(48)=(yawangle_cmd-yawangle_meas)*pi/180/avrSWAP(3) ! rate = (angle desired - angle measured)/dt [rad/s]
                 avrSWAP(48)=sign(min(abs(avrSWAP(48)),maxyawrate*pi/180),avrSWAP(48)) ! Apply saturation
             endif
         endif

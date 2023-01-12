@@ -123,7 +123,7 @@ subroutine SCClient_DISCON (avrSWAP, aviFAIL, avcINFILE, avcOUTNAME, avcMSG) bin
         fidout=101
         open(unit=fidout,file=trim(SC_var%dir_ctrl)//'\SCClient_out.dat',iostat=error)
     endif
-    write(fidout,'(*(e13.5))') avrSWAP(2), avrSWAP(21), avrSWAP(45)*180.0/pi, avrSWAP(4)*180.0/pi, avrSWAP(47), avrSWAP(13), avrSWAP(15), avrSWAP(27), avrSWAP(87), avrSWAP(48)
+    write(fidout,'(*(e13.5))') avrSWAP(2), avrSWAP(21), avrSWAP(45)*180.0/pi, avrSWAP(4)*180.0/pi, avrSWAP(47), avrSWAP(13), avrSWAP(15), avrSWAP(27), avrSWAP(87), avrSWAP(48), yawangle_cmd, yawangle_meas
     if(PrintFlag) call flush(fidout)
     if (iStatus < 0) close(fidout)
     ! if(SC_var%iT==1) print*, 'DISCON: ',iStatus, avrSWAP(13), avrSWAP(87)

@@ -26,7 +26,7 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
 
     t_loc=0.0
     y=0.0
-    10 format('(33(E8.2))')
+    10 format('(33E8.2)')
     do while (t_loc<t)
         t_loc_prev=t_loc
         do iT_loc=1,32

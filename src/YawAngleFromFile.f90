@@ -31,7 +31,7 @@ subroutine YawAngleFromFileSub(t,iT,dir_ctrl,y_out)
         do iT_loc=1,32
             if(y(iT_loc)/=0.0) y_prev(iT_loc)=y(iT_loc)
         enddo
-        read(fid,'(33E8.2)') t_loc, y
+        read(fid,*) t_loc, y
     enddo
 
     dt=t_loc-t_loc_prev

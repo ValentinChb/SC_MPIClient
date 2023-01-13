@@ -25,7 +25,8 @@ integer                         :: output_unit_eff
 character(255), save            :: dir_ctrl, dir_fast, dir_farm  
 logical                         :: ReadSC = .true.      ! false: bypass reading SC_input.dat and force UseSC=0 (for single-turbine use)
 real, parameter                 :: pi = 3.1415
-real(c_float), public           :: yawangle_cmd, yawangle_cmd_sat, yawangle_0, yawangle_meas ! Commanded, initial and measured yaw angles [deg]
+real(c_float), public           :: yawangle_cmd, yawangle_cmd_sat, yawangle_0, yawangle_meas ! Commanded, saturated, initial and measured yaw angles [deg]
+real(c_float), public           :: yawrate, yawrate_sat ! Desired and saturated yaw angles [deg]
 
 public                          :: SC_MPI, TSC, get_TSC
 
@@ -51,7 +52,6 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     integer(c_int)                          :: ierror
     logical, parameter                      :: powerramp=.false.
     logical, parameter                      :: YawAngleFormFile_flag = .true.
-    real(c_float)                           :: yawrate, yawrate_sat
     real(c_float)                           :: maxyawrate=2 ! arbitrary value only for stability 
 
     ! logical                                 :: initflag

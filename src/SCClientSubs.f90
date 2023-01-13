@@ -51,7 +51,7 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     integer(c_int)                          :: ierror
     logical, parameter                      :: powerramp=.false.
     logical, parameter                      :: YawAngleFormFile_flag = .true.
-     
+    real(c_float)                           :: yawrate, yawrate_sat
     real(c_float)                           :: maxyawrate=5 ! arbitrary value only for stability 
 
     ! logical                                 :: initflag
@@ -77,9 +77,13 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
                 if (status==0) yawangle_0 = avrSWAP(37)*180/pi
                 call YawAngleFromFileSub(avrSWAP(2),iT,dir_ctrl,yawangle_cmd)
                 yawangle_meas=avrSWAP(37)*180/pi-yawangle_0
-                ! avrSWAP(48)=(yawangle_cmd-yawangle_meas)*pi/180/avrSWAP(3) ! rate = (angle desired - angle measured)/dt [rad/s]
-                ! avrSWAP(48)=sign(min(abs(avrSWAP(48)),maxyawrate*pi/180),avrSWAP(48)) ! Apply saturation
-                avrSWAP(48)=yawangle_cmd*pi/180/avrSWAP(3) ! rate = angle desired/dt and YawDamp = dt*YawSpr --> angle = 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt rad/s cutoff
+                yawrate=(yawangle_cmd-yawangle_meas)*pi/180/avrSWAP(3)  ! rate = (angle desired - angle measured)/dt [rad/s]
+                yawrate_sat=sign(min(abs(yawrate),maxyawrate*pi/180),yawrate) ! Apply saturation
+                ! Controlling true desired rate (YawDOF=false, does not seem to work)
+                ! avrSWAP(48)=yawrate_sat 
+                ! Controlling neutral rate with zeroed neautral angle (YawDOF=true), yielding y(s)=u(s)*YawDamp/(YawIner*s^2+YawDamp*s+YawSpr)
+                yawangle_cmd=yawangle_meas+yawrate_sat*avrSWAP(3) 
+                avrSWAP(48)=yawangle_cmd*pi/180/avrSWAP(3) ! u = angle desired/dt, YawDamp = dt*YawSpr and w0=sqrt(YawSpr/YawIner) >> 1/dt --> y ~ 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt cutoff [rad/s]
             endif
         endif
 

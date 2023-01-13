@@ -25,7 +25,7 @@ integer                         :: output_unit_eff
 character(255), save            :: dir_ctrl, dir_fast, dir_farm  
 logical                         :: ReadSC = .true.      ! false: bypass reading SC_input.dat and force UseSC=0 (for single-turbine use)
 real, parameter                 :: pi = 3.1415
-real(c_float), public           :: yawangle_cmd, yawangle_0, yawangle_meas ! Commanded, initial and measured yaw angles [deg]
+real(c_float), public           :: yawangle_cmd, yawangle_cmd_sat, yawangle_0, yawangle_meas ! Commanded, initial and measured yaw angles [deg]
 
 public                          :: SC_MPI, TSC, get_TSC
 
@@ -82,8 +82,8 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
                 ! Controlling true desired rate (YawDOF=false, does not seem to work)
                 ! avrSWAP(48)=yawrate_sat*pi/180
                 ! Controlling neutral rate with zeroed neautral angle (YawDOF=true), yielding y(s)=u(s)*YawDamp/(YawIner*s^2+YawDamp*s+YawSpr)
-                yawangle_cmd=yawangle_meas+yawrate_sat*avrSWAP(3) 
-                avrSWAP(48)=yawangle_cmd*pi/180/avrSWAP(3) ! u = angle desired/dt, YawDamp = dt*YawSpr and w0=sqrt(YawSpr/YawIner) >> 1/dt --> y ~ 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt cutoff [rad/s]
+                yawangle_cmd_sat=yawangle_meas+yawrate_sat*avrSWAP(3) 
+                avrSWAP(48)=yawangle_cmd_sat*pi/180/avrSWAP(3) ! u = angle desired/dt, YawDamp = dt*YawSpr and w0=sqrt(YawSpr/YawIner) >> 1/dt --> y ~ 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt cutoff [rad/s]
             endif
         endif
 

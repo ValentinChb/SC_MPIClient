@@ -80,10 +80,10 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
                 yawrate=(yawangle_cmd-yawangle_meas)/avrSWAP(3)  ! rate = (angle desired - angle measured)/dt [rad/s]
                 yawrate_sat=sign(min(abs(yawrate),maxyawrate),yawrate) ! Apply saturation
                 ! Controlling true desired rate (YawDOF=false, does not seem to work)
-                ! avrSWAP(48)=yawrate_sat*pi/180
+                avrSWAP(48)=yawrate_sat*pi/180
                 ! Controlling neutral rate with zeroed neautral angle (YawDOF=true), yielding y(s)=u(s)*YawDamp/(YawIner*s^2+YawDamp*s+YawSpr)
-                yawangle_cmd_sat=yawangle_meas+yawrate_sat*avrSWAP(3) 
-                avrSWAP(48)=yawangle_cmd_sat*pi/180/avrSWAP(3) ! u = angle desired/dt, YawDamp = dt*YawSpr and w0=sqrt(YawSpr/YawIner) >> 1/dt --> y ~ 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt cutoff [rad/s]
+                ! yawangle_cmd_sat=yawangle_meas+yawrate_sat*avrSWAP(3) 
+                ! avrSWAP(48)=yawangle_cmd_sat*pi/180/avrSWAP(3) ! u = angle desired/dt, YawDamp = dt*YawSpr and w0=sqrt(YawSpr/YawIner) >> 1/dt --> y ~ 1/dt / (s+1/dt) * angle desired, i.e. low-pass with 1/dt cutoff [rad/s]
             endif
         endif
 

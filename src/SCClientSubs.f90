@@ -52,7 +52,7 @@ subroutine SC_MPI(status, avrSWAP, lfilename, SCinit_filename, ierror) bind(c,na
     integer(c_int)                          :: ierror
     logical, parameter                      :: powerramp=.false.
     logical, parameter                      :: YawAngleFormFile_flag = .true.
-    real(c_float)                           :: maxyawrate=2 ! arbitrary value only for stability 
+    real(c_float)                           :: maxyawrate=5 ! arbitrary value only for stability 
 
     ! logical                                 :: initflag
     ! integer                                 :: taskID, ntasks

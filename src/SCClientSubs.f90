@@ -290,8 +290,7 @@ subroutine VTKSync(status,time)
     logical, parameter                  :: OutputTiming = .false.
     character(255), save                :: winddir_src_t, winddir_src_f, winddir_dst ! path to high-resolution domain source files, path to low-resolution domain source files and wind data directory for the simulation (WindFilePath in .fstf file)
     character(2)                        :: seednr_str
-    character(*), parameter             :: RootOut= &              ! Root path name for wind files if Out=2
-   "C:\Users\valentinc\Workspace\OpenFAST\Simulations\Demo_TCWPP_SEWTC_HPC\NREL5MW\10mps_Debug\RemoteDrive" 
+    character(*), parameter             :: RootOut= "D:\"             ! Root path name for wind files if Out=2 
 
     if (status==0) then
         write(tnumstr,'(i3)') iT
